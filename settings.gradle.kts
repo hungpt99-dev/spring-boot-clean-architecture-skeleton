@@ -4,6 +4,7 @@ include(
     "domain",
     "usecase",
     "adapter",
-    "application"
+    "application",
+    "tooling"
 )
 
