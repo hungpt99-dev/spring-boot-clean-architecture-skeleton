@@ -38,9 +38,28 @@ public class ActivityLogAspect {
         String action = ann != null ? ann.value() : sig.getMethod().getName();
         activityLogger.logStart(action);
         try {
-            return pjp.proceed();
+            Object result = pjp.proceed();
+            activityLogger.logSuccess(action);
+            return result;
         } finally {
-            activityLogger.logEnd(action);
+            // success already logged; failure logged in catch below
+        }
+        // failures are handled in the catch below
+    }
+
+    @Around("@within(com.yourorg.yourapp.adapter.annotation.ActivityLog) || @annotation(com.yourorg.yourapp.adapter.annotation.ActivityLog)")
+    public Object logWithFailure(ProceedingJoinPoint pjp) throws Throwable {
+        try {
+            return logActivity(pjp);
+        } catch (Throwable t) {
+            MethodSignature sig = (MethodSignature) pjp.getSignature();
+            ActivityLog ann = AnnotatedElementUtils.findMergedAnnotation(sig.getMethod(), ActivityLog.class);
+            if (ann == null) {
+                ann = AnnotatedElementUtils.findMergedAnnotation(sig.getDeclaringType(), ActivityLog.class);
+            }
+            String action = ann != null ? ann.value() : sig.getMethod().getName();
+            activityLogger.logFailure(action, t.getMessage());
+            throw t;
         }
     }
 }
