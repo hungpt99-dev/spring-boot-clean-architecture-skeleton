@@ -58,7 +58,12 @@ adapter/src/main/java/com/yourorg/yourapp/adapter
 ```text
 application/src/main/java/com/yourorg/yourapp/config
  ├── Application.java
- └── AppProperties.java
+ ├── AppProperties.java
+ ├── AnnotationRegistrar.java   # auto-registers @DomainComponent, @UseCaseComponent (configurable base packages)
+ ├── UseCaseTransactionalAspect.java
+ ├── LocalizationConfig.java
+ ├── TimeZoneConfig.java
+ └── ...
 ```
 
 - **Responsibility**: Spring Boot setup, bean wiring, configuration properties.

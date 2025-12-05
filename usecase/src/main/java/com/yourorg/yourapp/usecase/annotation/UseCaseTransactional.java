@@ -15,5 +15,21 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface UseCaseTransactional {
     boolean readOnly() default false;
+    /**
+     * When true, forces a new transaction (REQUIRES_NEW).
+     */
+    boolean requiresNew() default false;
+    /**
+     * Optional transaction timeout in seconds (ignored if < 0).
+     */
+    int timeoutSeconds() default -1;
+    /**
+     * Rollback on these exception types.
+     */
+    Class<? extends Throwable>[] rollbackFor() default {};
+    /**
+     * No rollback on these exception types.
+     */
+    Class<? extends Throwable>[] noRollbackFor() default {};
 }
 

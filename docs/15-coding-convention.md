@@ -21,6 +21,18 @@ These conventions keep the codebase consistent and easier to review.
   - Keep `domain` and `usecase` Lombok-free to avoid processor issues in core logic.
   - If you hit processor issues on JDK 25, temporarily disable Lombok or compile those modules with JDK 21 toolchains.
 
+## Custom Annotations & Scanning
+
+- **Domain**:
+  - `@DomainComponent`: marks domain components; auto-registered via `AnnotationRegistrar` (base packages from `app.domain.base-packages`).
+- **Usecase**:
+  - `@UseCaseComponent`: marks interactors; auto-registered via `AnnotationRegistrar` (base packages from `app.usecase.base-packages`).
+  - `@UseCaseTransactional`: transactional marker (aspect applies TX).
+- **Adapter**:
+  - `@AdapterComponent`: meta-annotated with `@Component` for adapter beans.
+  - `@ApiController`: meta-annotated with `@RestController` + `@RequestMapping` to reduce boilerplate.
+  - Logging/guard annotations: `@RateLimit`, `@Idempotent`, `@FeatureToggle`, `@TimeRestricted`, `@RegionRestricted`, `@ActivityLog`, `@IgnoreLog`, `@RequestLog`, `@ResponseLog`, `@DeprecatedApi`, `@CaptchaRequired`, `@DistributedLock`, `@TestOnly`, `@MockService`, `@Masked`, `@SensitiveField`, `@Encrypted`, `@Decrypted`, `@Tokenized`.
+
 ## Dependency Injection
 
 - Use **constructor injection** everywhere.
