@@ -4,6 +4,17 @@ CREATE TABLE IF NOT EXISTS feature_flags (
     enabled BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- Products
+CREATE TABLE IF NOT EXISTS products (
+    id UUID PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    sku VARCHAR(100) NOT NULL UNIQUE,
+    price NUMERIC(15,2) NOT NULL,
+    status VARCHAR(30) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
 -- Activity logs
 CREATE TABLE IF NOT EXISTS activity_logs (
     id UUID PRIMARY KEY,
