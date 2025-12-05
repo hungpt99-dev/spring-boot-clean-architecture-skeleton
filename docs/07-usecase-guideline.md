@@ -11,6 +11,9 @@ Use cases model **application-specific business actions** (e.g., register user, 
 - **Framework‑free**
   - No Spring annotations, no HTTP, no JPA APIs.
   - Only plain Java, `domain` types, and `usecase` ports.
+- **Registration**
+  - Mark interactors with `@UseCaseComponent` (usecase module).
+  - The application-layer registrar scans packages defined in `app.usecase.base-packages`.
 
 ## Structure
 
@@ -54,5 +57,6 @@ public class UserRegisterInteractor implements UserInputBoundary {
   - Annotate with `@Service`, `@Transactional`, `@Component`.
   - Inject repositories directly from Spring Data—use `UserDsGateway` instead.
   - Read environment variables or configuration directly—those are for `application` and adapters.
+  - Rely on component scanning defaults without setting `app.usecase.base-packages`; no beans will be registered otherwise.
 
 

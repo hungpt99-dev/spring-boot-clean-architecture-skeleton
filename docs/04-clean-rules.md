@@ -50,7 +50,7 @@ domain   ←   usecase   ←   adapter   ←   application
   - Contains:
     - Spring Boot main class
     - Configuration properties
-    - Bean wiring
+    - Bean wiring (manual or auto-registered via scanners)
 
 ## Coding Rules
 
