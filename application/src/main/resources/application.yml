@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: yourapp
+  main:
+    cloud-platform: ${CLOUD_PLATFORM:}
+    keep-alive: true
+  messages:
+    basename: messages
+  profiles:
+    default: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${YOURAPP_DB_URL:jdbc:postgresql://localhost:5432/yourapp}
+    username: ${YOURAPP_DB_USER:yourapp}
+    password: ${YOURAPP_DB_PASSWORD:secret}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    time-zone: UTC
+    serialization:
+      write-dates-as-timestamps: false
+  threads:
+    virtual:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+server:
+  shutdown: graceful
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    com.yourorg.yourapp: INFO
+
+yourapp:
+  environment:
+    name: ${APP_ENV:dev}
+    region: ${APP_REGION:local}
+  datasource:
+    host: ${YOURAPP_DB_HOST:localhost}
+    port: ${YOURAPP_DB_PORT:5432}
+    db: ${YOURAPP_DB_NAME:yourapp}
+    username: ${YOURAPP_DB_USER:yourapp}
+  messaging:
+    broker: ${YOURAPP_BROKER_URL:amqp://localhost:5672}
+    exchange: ${YOURAPP_BROKER_EXCHANGE:user.events}
+  localization:
+    default-locale: ${YOURAPP_DEFAULT_LOCALE:en}
+    fallback-locale: ${YOURAPP_FALLBACK_LOCALE:en}
+    supported-locales: ${YOURAPP_SUPPORTED_LOCALES:en,vi}
+    default-time-zone: ${YOURAPP_DEFAULT_TIMEZONE:UTC}
+

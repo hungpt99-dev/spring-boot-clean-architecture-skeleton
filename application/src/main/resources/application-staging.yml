@@ -1,0 +1,20 @@
+spring:
+  config:
+    activate:
+      on-profile: staging
+  datasource:
+    url: ${STAGING_DB_URL}
+    username: ${STAGING_DB_USER}
+    password: ${STAGING_DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: none
+        jdbc:
+          time_zone: UTC
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: WARN
+
