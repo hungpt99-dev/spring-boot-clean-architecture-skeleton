@@ -7,12 +7,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marker annotation for use case implementations (interactors).
- * Keeps explicit intent without introducing framework dependencies.
+ * Marker for use case interactors. No Spring dependency.
+ * Application layer can scan for this annotation and register beans automatically.
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface UseCase {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface UseCaseComponent {
 }
 

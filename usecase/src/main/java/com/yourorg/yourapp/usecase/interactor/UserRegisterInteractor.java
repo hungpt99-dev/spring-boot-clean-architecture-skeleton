@@ -4,6 +4,8 @@ import com.yourorg.yourapp.domain.event.DomainEventPublisher;
 import com.yourorg.yourapp.domain.event.UserRegisteredEvent;
 import com.yourorg.yourapp.domain.factory.UserFactory;
 import com.yourorg.yourapp.domain.model.User;
+import com.yourorg.yourapp.usecase.annotation.UseCaseComponent;
+import com.yourorg.yourapp.usecase.annotation.UseCaseTransactional;
 import com.yourorg.yourapp.usecase.inputboundary.UserInputBoundary;
 import com.yourorg.yourapp.usecase.outputboundary.UserDsGateway;
 import com.yourorg.yourapp.usecase.outputboundary.UserPresenter;
@@ -11,6 +13,8 @@ import com.yourorg.yourapp.usecase.requestresponsemodel.UserRequestModel;
 import com.yourorg.yourapp.usecase.requestresponsemodel.UserResponseModel;
 import java.time.Instant;
 
+@UseCaseComponent
+@UseCaseTransactional
 public class UserRegisterInteractor implements UserInputBoundary {
 
     private final UserFactory userFactory;
