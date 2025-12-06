@@ -1,0 +1,59 @@
+services:
+  app:
+    build: .
+    container_name: style-ai-app
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - YOURAPP_DB_HOST=${DB_HOST}
+      - YOURAPP_DB_PORT=${DB_PORT}
+      - YOURAPP_DB_NAME=${DB_NAME}
+      - YOURAPP_DB_USER=${DB_USER}
+      - YOURAPP_DB_PASSWORD=${DB_PASSWORD}
+      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
+      - SPRING_DATA_REDIS_PORT=${REDIS_PORT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - style-ai-net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: style-ai-postgres
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - style-ai-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: style-ai-redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - style-ai-net
+
+networks:
+  style-ai-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
