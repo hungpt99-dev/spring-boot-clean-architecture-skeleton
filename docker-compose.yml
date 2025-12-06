@@ -1,5 +1,7 @@
 services:
   app:
+    profiles:
+      - app-image
     build: .
     container_name: style-ai-app
     ports:
