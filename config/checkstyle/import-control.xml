@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE import-control PUBLIC
+    "-//Checkstyle//DTD ImportControl Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/import_control_1_2.dtd">
+<import-control pkg="com.yourorg.yourapp">
+
+    <subpackage name="domain">
+        <disallow pkg="org.springframework"/>
+        <disallow pkg="org.springframework.boot"/>
+        <disallow pkg="jakarta"/>
+        <disallow pkg="javax"/>
+        <disallow pkg="com.yourorg.yourapp.usecase"/>
+        <disallow pkg="com.yourorg.yourapp.adapter"/>
+        <disallow pkg="com.yourorg.yourapp.config"/>
+    </subpackage>
+
+    <subpackage name="usecase">
+        <disallow pkg="org.springframework"/>
+        <disallow pkg="org.springframework.boot"/>
+        <disallow pkg="jakarta"/>
+        <disallow pkg="javax"/>
+        <disallow pkg="com.yourorg.yourapp.adapter"/>
+        <disallow pkg="com.yourorg.yourapp.config"/>
+    </subpackage>
+
+    <subpackage name="adapter">
+        <disallow pkg="com.yourorg.yourapp.config"/>
+    </subpackage>
+
+</import-control>
+
+

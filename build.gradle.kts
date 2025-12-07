@@ -1,4 +1,6 @@
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.plugins.quality.Checkstyle
+import org.gradle.api.plugins.quality.CheckstyleExtension
 
 plugins {
     id("org.springframework.boot") version "4.0.0-M1" apply false
@@ -21,10 +23,24 @@ allprojects {
 
 subprojects {
     apply(plugin = "java")
+    apply(plugin = "checkstyle")
 
     extensions.configure<JavaPluginExtension> {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(25))
+        }
+    }
+
+    extensions.configure<CheckstyleExtension> {
+        toolVersion = "10.20.0"
+        configDirectory.set(rootProject.layout.projectDirectory.dir("config/checkstyle"))
+        isIgnoreFailures = false
+    }
+
+    tasks.withType<Checkstyle> {
+        reports {
+            xml.required.set(false)
+            html.required.set(true)
         }
     }
 
