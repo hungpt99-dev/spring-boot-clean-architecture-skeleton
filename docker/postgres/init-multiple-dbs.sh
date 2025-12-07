@@ -10,6 +10,10 @@ function create_user_and_database() {
 	    CREATE USER $database WITH PASSWORD 'secret'; -- default password for dev
 	    CREATE DATABASE $database;
 	    GRANT ALL PRIVILEGES ON DATABASE $database TO $database;
+        ALTER DATABASE $database OWNER TO $database;
+        GRANT ALL ON SCHEMA public TO $database;
+	    -- Grant privileges to the POSTGRES_USER as well just in case
+	    GRANT ALL PRIVILEGES ON DATABASE $database TO "$POSTGRES_USER";
 EOSQL
 }
 
