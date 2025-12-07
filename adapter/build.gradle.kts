@@ -25,5 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation(platform("software.amazon.awssdk:bom:2.34.6"))
+    implementation("software.amazon.awssdk:s3")
 }
 

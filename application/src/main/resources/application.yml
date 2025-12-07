@@ -63,6 +63,13 @@ yourapp:
     port: ${YOURAPP_DB_PORT:5432}
     db: ${YOURAPP_DB_NAME:yourapp}
     username: ${YOURAPP_DB_USER:yourapp}
+  storage:
+    endpoint: ${YOURAPP_STORAGE_ENDPOINT:http://localhost:9000}
+    region: ${YOURAPP_STORAGE_REGION:us-east-1}
+    access-key: ${YOURAPP_STORAGE_ACCESS_KEY:minio}
+    secret-key: ${YOURAPP_STORAGE_SECRET_KEY:miniosecret}
+    bucket: ${YOURAPP_STORAGE_BUCKET:yourapp-bucket}
+    path-style-access: ${YOURAPP_STORAGE_PATH_STYLE:true}
   messaging:
     broker: ${YOURAPP_BROKER_URL:amqp://localhost:5672}
     exchange: ${YOURAPP_BROKER_EXCHANGE:user.events}
